@@ -1,0 +1,104 @@
+---
+title: "Olympics"
+subtitle: "STAT 330 Portfolio Project Proposal"
+author: "Rachael Casady and Cassidee Beus"
+format:
+  html:
+    theme: cosmo
+    toc: true
+    code-fold: true
+    code-summary: "Show code"
+    embed-resources: true
+execute:
+  warning: false
+  message: false
+---
+
+**Group members:** Rachael Casady and Cassidee Beus
+
+## Question and audience
+
+**State one focused regression question. Identify the intended audience, explain why the answer matters, and name the response and important candidate predictors.**
+
+Do economic resources and population help predict Olympic medal totals?\
+The intended audience could be Olympic committees, journalists, Sports Agencies.\
+This matters because we are curious to know if where these athletes are coming from or how many athletes the country sends effects how many medals they win. It matters because not every country has the same resources so does that effect their chances of winning medals at the olympics. The answer can impact how can we predict which country will do well in future Olympic games. Why do medal winning athletes do well and what sets their country apart? Is it because of where they are coming from (economic status) or how many are coming (number of athletes)?
+
+Response variable: total medals\
+Important Candidate predictors: number of athletes, GDP per capita, population
+
+## Data
+
+```{r}
+olympics = read.csv("Paris2024_olympics_country_data.csv", header = TRUE)
+
+View(olympics)
+names(olympics)
+str(olympics)
+
+olympics_model = olympics[
+  c("Country", "Total.medals", "Number.of.athletes",
+    "GDP.per.capita", "Population")]
+
+head(olympics_model)
+str(olympics_model)
+```
+
+> <https://www.kaggle.com/datasets/krzysztofszafraski/paris2024-olympics-country-level-data?resource=download>\
+
+Observational unit: a country at the Paris 2024 Olympics
+
+Dimensions: 204x16
+
+Response: total number of medals won
+
+Candidate predictors: number of athletes, GDP per capita, population
+
+There is evidence that the data can answer our question because it includes information from each country that participated in the Paris 2024 Olympics, including the predictors and response variable mentioned above.
+
+We obtained our data from a public data set on Kagle.
+
+## One useful first look
+
+```{r}
+library(ggplot2)
+library(tidyverse)
+
+olympics_model |>
+  pivot_longer(
+    cols = c(Number.of.athletes,GDP.per.capita, Population),
+    names_to = "predictor",
+    values_to = "value"
+  ) |>
+  ggplot(aes(x = value, y = Total.medals)) +
+  geom_point(alpha = 0.5) +
+  facet_wrap(~ predictor, scales = "free_x") +
+  labs(
+    x = NULL,
+    y = "Medals Won",
+    title = "Total medals compared with each predictor"
+  )
+```
+
+The number of athletes comparison seems to have the most linear relationship with total medals won. The line has less of a curve than the other two predictors. This suggests that there is a relationship between countries with more athlete representatives winning more medals.
+
+## Baseline model
+
+```{r}
+baseline = lm(Total.medals ~ Number.of.athletes + GDP.per.capita + Population,
+              data = olympics_model)
+
+summary(baseline)
+confint(baseline)
+```
+
+The p-value for number of athletes is very small, suggesting that the number of athletes from each country does have an impact on whether a country had won a medal at the 2024 Paris Olympics. If there wasn't a significant impact, the p-values for our other predictors would be closer to the same value. There is some uncertainty in the relationship between a country's population and number of athletes, meaning perhaps a country with a larger population is able to bring more athletes to the Olympics, and vice verse. This patterned is unexplained in our data.
+
+## Where the analysis could go
+
+1.  **Model Structure:** we are curious about interaction relationships and seeing if transformations can help with the scale of our data, we could also use transformations to help transform some of the data to look more normal/linear
+2.  **Diagnostics and Robustness:** we hope to specifically find out if there is multicollinearity with population and number of athletes on the effect of winning medals
+
+## AI disclosure and sources
+
+We used AI to help read our data set and articulate our research question in a way that made sense with the data.
