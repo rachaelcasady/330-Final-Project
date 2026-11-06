@@ -1,37 +1,54 @@
 ---
 title: "AI Use and Verification"
 description: "A concise record of AI-supported work on this project."
-author: "Replace with all group members' names"
+author: "Rachael Casady and Cassidee Beus"
 ---
 
 This page is a work log, not a second report. Short bullets are welcome. It is separate from the final case study and does not count toward the 750 to 1,000 word range.
 
 ## Starting point
 
-**AI system and date:** Replace.
+**AI system and date:** Chat GPT 11/6/26
 
 **Before using AI for the required extension, briefly state your question, course-based core model, baseline result, and the specific limitation or opportunity you wanted to address.**
+
+Our question is the effects of country economic and population factors on winning Olympic medals. We are using data from the Paris 2024 Olympics. We want to use AI to specifically work with our response variable, number of medals won, since it is right skewed. Most countries at the olympics win 0 medals.
 
 ## Substantive prompts
 
 Paste the exact prompts that shaped the extension. Include the customized extension-selection prompt from the checkpoint and any important implementation follow-ups. Delete unused prompt blocks.
 
-> Replace with an exact prompt.
+> We are doing regression for a statistics class project on this data from the Paris Olympics. We want to look at the effect of economic and population variables on total medals won per country. Our response is right skewed since most countries win 0 medals, what are some things we could do to work with that?
 
-> Replace with another exact prompt, if needed.
+> How could we include number of athletes as a control or predictor?
+
+> How would we do a negative binomial regression?
 
 ## My decisions
 
 - **Accepted:** What useful advice did you use?
+
+AI reccomended we log the predictors as well as the response, since most coefficients are skewed. We originally were only thinking of the right-skewed response variable. It showed us how to use the Negative-Binomial regression model since it automatically logs the data and allows more spread.
+
 - **Changed:** What did you adapt to fit your data or goals?
+
+We are going to log the response and predictors in our regression model and account for number of athletes as a control.
+
 - **Rejected or corrected:** What advice was unsuitable, unnecessary, or wrong?
+
+AI told us a Poisson model wouldn't work well with our data, then still gave it as an option.
+
 
 **Connection to the final case study:** Identify where the extension's method and result appear on the final page and how they strengthen the course-based analysis.
 
+In our regression, to account large variance in response and predictor variables, we used the Negative-Binomial regression model.
+
 ## Independent verification
 
-1. **Check and result:** Replace with an official source, diagnostic, simulation, manual calculation, comparison with a known method, or another suitable check.
-2. **Check and result:** Replace with a different check and what you learned.
+1. **Check and result:** It makes sense that AI would suggest the Negative-Binomial model because of its ability to log the data. We talked in class about how logging the response and/or predictors allows us to work with data with more spread and large variance relative to the mean.
+
+2. **Check and result:** This source explains why we should use log(y + 1) instead of just log(y). Since the log of 0 is undefined, adding 1 allows us to account for 0 values after taking the log, especially since so many countries have 0 medals. The source also warns how this method can distort the data results.
+https://casrai.org/guides/log-and-other-data-transformations 
 
 Link or cite verification sources where appropriate. A second AI response does not count as independent verification.
 
@@ -39,6 +56,10 @@ Link or cite verification sources where appropriate. A second AI response does n
 
 **State one important uncertainty, failure mode, or limitation that remains.**
 
+While taking the log transformation +1 for our data accounts for spread, skewness, and many values equal to 0, this method could distort the transformed data and cause disproportionate results, particalarily for values close to 0.
+
 ## Other AI use, if any
 
 **Briefly disclose earlier debugging, proofreading, or other AI assistance. Write “None” if there was no other use.**
+
+None

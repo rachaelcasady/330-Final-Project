@@ -1,0 +1,51 @@
+[
+  {
+    "objectID": "ai-use.html",
+    "href": "ai-use.html",
+    "title": "AI Use and Verification",
+    "section": "",
+    "text": "This page is a work log, not a second report. Short bullets are welcome. It is separate from the final case study and does not count toward the 750 to 1,000 word range."
+  },
+  {
+    "objectID": "ai-use.html#starting-point",
+    "href": "ai-use.html#starting-point",
+    "title": "AI Use and Verification",
+    "section": "Starting point",
+    "text": "Starting point\nAI system and date: Chat GPT 11/6/26\nBefore using AI for the required extension, briefly state your question, course-based core model, baseline result, and the specific limitation or opportunity you wanted to address.\nOur question is the effects of country economic and population factors on winning Olympic medals. We are using data from the Paris 2024 Olympics. We want to use AI to specifically work with our response variable, number of medals won, since it is right skewed. Most countries at the olympics win 0 medals."
+  },
+  {
+    "objectID": "ai-use.html#substantive-prompts",
+    "href": "ai-use.html#substantive-prompts",
+    "title": "AI Use and Verification",
+    "section": "Substantive prompts",
+    "text": "Substantive prompts\nPaste the exact prompts that shaped the extension. Include the customized extension-selection prompt from the checkpoint and any important implementation follow-ups. Delete unused prompt blocks.\n\nWe are doing regression for a statistics class project on this data from the Paris Olympics. We want to look at the effect of economic and population variables on total medals won per country. Our response is right skewed since most countries win 0 medals, what are some things we could do to work with that?\n\n\nHow could we include number of athletes as a control or predictor?\n\n\nHow would we do a negative binomial regression?"
+  },
+  {
+    "objectID": "ai-use.html#my-decisions",
+    "href": "ai-use.html#my-decisions",
+    "title": "AI Use and Verification",
+    "section": "My decisions",
+    "text": "My decisions\n\nAccepted: What useful advice did you use?\n\nAI reccomended we log the predictors as well as the response, since most coefficients are skewed. We originally were only thinking of the right-skewed response variable. It showed us how to use the Negative-Binomial regression model since it automatically logs the data and allows more spread.\n\nChanged: What did you adapt to fit your data or goals?\n\nWe are going to log the response and predictors in our regression model and account for number of athletes as a control.\n\nRejected or corrected: What advice was unsuitable, unnecessary, or wrong?\n\nAI told us a Poisson model wouldn’t work well with our data, then still gave it as an option.\nConnection to the final case study: Identify where the extension’s method and result appear on the final page and how they strengthen the course-based analysis.\nIn our regression, to account large variance in response and predictor variables, we used the Negative-Binomial regression model."
+  },
+  {
+    "objectID": "ai-use.html#independent-verification",
+    "href": "ai-use.html#independent-verification",
+    "title": "AI Use and Verification",
+    "section": "Independent verification",
+    "text": "Independent verification\n\nCheck and result: It makes sense that AI would suggest the Negative-Binomial model because of its ability to log the data. We talked in class about how logging the response and/or predictors allows us to work with data with more spread and large variance relative to the mean.\nCheck and result: This source explains why we should use log(y + 1) instead of just log(y). Since the log of 0 is undefined, adding 1 allows us to account for 0 values after taking the log, especially since so many countries have 0 medals. The source also warns how this method can distort the data results. https://casrai.org/guides/log-and-other-data-transformations\n\nLink or cite verification sources where appropriate. A second AI response does not count as independent verification."
+  },
+  {
+    "objectID": "ai-use.html#remaining-limitation",
+    "href": "ai-use.html#remaining-limitation",
+    "title": "AI Use and Verification",
+    "section": "Remaining limitation",
+    "text": "Remaining limitation\nState one important uncertainty, failure mode, or limitation that remains.\nWhile taking the log transformation +1 for our data accounts for spread, skewness, and many values equal to 0, this method could distort the transformed data and cause disproportionate results, particalarily for values close to 0."
+  },
+  {
+    "objectID": "ai-use.html#other-ai-use-if-any",
+    "href": "ai-use.html#other-ai-use-if-any",
+    "title": "AI Use and Verification",
+    "section": "Other AI use, if any",
+    "text": "Other AI use, if any\nBriefly disclose earlier debugging, proofreading, or other AI assistance. Write “None” if there was no other use.\nNone"
+  }
+]
